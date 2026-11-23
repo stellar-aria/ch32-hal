@@ -49,8 +49,10 @@ fn main() {
     // cannot own the SysTick time driver: its counter interrupts through
     // vector 13, which `qingke-rt` does not expose. The V5F feature is
     // `ch32h417qeu6-v5f`, so the env key carries the chip name, not `V5F`.
+    // Cargo turns the feature's `-` into `_` in CARGO_FEATURE_*, so `chip_name`
+    // ends in `_v5f`.
     println!("cargo:rustc-check-cfg=cfg(qingke_v5f)");
-    if chip_name.ends_with("-v5f") {
+    if chip_name.ends_with("_v5f") {
         println!("cargo:rustc-cfg=qingke_v5f");
     }
 
